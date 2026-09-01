@@ -1,0 +1,19 @@
+# Profile for running the backend directly on your machine / from Eclipse
+# against a local PostgreSQL instance (e.g. started via docker-compose.yml).
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/canteen_saarthi
+    username: postgres
+    password: 
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+
+app:
+  cors:
+    allowed-origins: http://localhost:5173,http://localhost:4173
+
+logging:
+  level:
+    com.csd.canteen: DEBUG
+    org.hibernate.SQL: DEBUG

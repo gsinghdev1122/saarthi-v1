@@ -1,0 +1,22 @@
+# Backend
+backend/target/
+backend/.settings/
+backend/.classpath
+backend/.project
+backend/*.iml
+backend/.idea/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Env / secrets
+.env
+*.env.local
+
+# OS
+.DS_Store
+
+# Nginx certs (never commit real certs)
+nginx/certs/*.pem

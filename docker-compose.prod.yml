@@ -1,0 +1,69 @@
+# PRODUCTION stack for a single AWS EC2 host.
+# Reads secrets/config from a `.env` file (see .env.prod.example) placed next to this file.
+# The host-level Nginx (see nginx/nginx.conf) terminates TLS and reverse-proxies to the
+# `frontend` container; the frontend container's own Nginx proxies /api to `backend`.
+#
+# Usage on the EC2 instance:
+#   cp .env.prod.example .env    # then fill in real values
+#   docker compose -f docker-compose.prod.yml up -d --build
+name: canteen-saarthi-prod
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: canteen-backend
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    expose:
+      - "8080"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/api/healthz"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: canteen-frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    expose:
+      - "80"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: canteen-nginx
+    restart: unless-stopped
+    depends_on:
+      - frontend
+      - backend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"

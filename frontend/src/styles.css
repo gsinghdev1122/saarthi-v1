@@ -1,0 +1,25 @@
+:root { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #f6f5f1; color: #1c2a20; }
+.app-shell { display: flex; min-height: 100vh; }
+.sidebar { width: 220px; background: #1c2a20; color: #f0ede4; padding: 24px 16px; }
+.sidebar a { display: block; color: #cfd8cf; text-decoration: none; padding: 10px 12px; border-radius: 6px; margin-bottom: 4px; font-size: 14px; }
+.sidebar a.active, .sidebar a:hover { background: #33473a; color: #fff; }
+.main { flex: 1; padding: 32px; max-width: 1200px; }
+.card { background: #fff; border: 1px solid #e4e1d8; border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.stat-value { font-size: 28px; font-weight: 700; margin: 4px 0; }
+.stat-label { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: #6b7566; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #eee; }
+th { text-transform: uppercase; font-size: 11px; color: #6b7566; }
+button { cursor: pointer; border: none; border-radius: 6px; padding: 8px 14px; font-weight: 600; font-size: 13px; }
+button.primary { background: #33473a; color: #fff; }
+input, select { padding: 8px 10px; border: 1px solid #d8d4c8; border-radius: 6px; font-size: 13px; }
+.pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+.pill.healthy, .pill.active, .pill.approved, .pill.processed { background: #e2eee4; color: #2d6542; }
+.pill.low, .pill.pending, .pill.expiring { background: #fbefd7; color: #916126; }
+.pill.rejected, .pill.inactive { background: #f8e2df; color: #a34338; }
+.error-banner { background: #f8e2df; color: #a34338; padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; }
+form.inline-form { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-items: end; margin-bottom: 16px; }
+form.inline-form label { display: block; font-size: 12px; margin-bottom: 4px; color: #6b7566; }
